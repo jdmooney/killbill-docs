@@ -307,30 +307,30 @@ In this section, we will provide some tips to verify the health of the system, a
 
 **SSH to EC2 Instances**
 
-From the EC2 dashboard, in the instance `Description` tab, you can copy the public DNS, called `Public DNS (IPv4)`.
-Then, using the private key you specified when creating the instance:
+For these procedures, first login to your EC2 instance, as described earlier. Then use the following command to switch to a tomcat user:
 
 ```
-# SSH as ubuntu user
-> ssh -i  <LOCATION_KEY>/<KEY_NAME>.pem ubuntu@<PUBLIC_DNS>
 # Move to tomcat user
 > sudo su - tomcat
 ```
 
 **Service Health**
 
-All services are started using System V init scripts, and so the status of the service can be retrieved:
+The status of each service can be retrieved by the following commands:
 
-* Kill Bill server: `service killbill status`
-* KAUI server: `service kaui status`
-* Nginx server: `service nginx status`
+* Kill Bill server: `sudo service killbill status`
+* KAUI server: `sudo service kaui status`
+* Nginx server: `sudo service nginx status`
 
-Similarly one can `start`, `stop` the services using simalar command -- e.g `service kaui stop` to stop KAUI.
+Similarly one can `start` and `stop` the services using simalar commands, e.g `sudo service kaui stop` to stop KAUI.
 
 In order to verify the health of the Kill Bill server instance, you can issue the following commands:
 
-* Healthcheck endpoint: `curl http://127.0.0.1:8080/1.0/healthcheck`
-* System info: `curl -u admin:password http://127.0.0.1:8080/1.0/kb/nodesInfo`
+`curl http://127.0.0.1:8080/1.0/healthcheck`
+
+Or to view detailed information about the system:
+
+`curl -u admin:password http://127.0.0.1:8080/1.0/kb/nodesInfo`
 
 **Log Files**
 
